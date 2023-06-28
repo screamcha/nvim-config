@@ -20,14 +20,22 @@ return require('packer').startup(function(use)
 
   -- treesitter
   use {
-	  'nvim-treesitter/nvim-treesitter',
-	  run = ':TSUpdate'
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate'
+  }
+
+  -- neo-tree
+  use { 'nvim-tree/nvim-web-devicons' }
+  use { 'MunifTanjim/nui.nvim' }
+  use {
+    'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v2.x',
   }
 
   -- lsp
   use {
-	  'williamboman/mason.nvim',
-	  run = ':MasonUpdate'
+    'williamboman/mason.nvim',
+    run = ':MasonUpdate'
   }
   use 'williamboman/mason-lspconfig.nvim'
   use 'neovim/nvim-lspconfig'
@@ -38,7 +46,12 @@ return require('packer').startup(function(use)
 
   -- themes
   use({ 'rose-pine/neovim', as = 'rose-pine' })
-  vim.cmd('colorscheme rose-pine')
+  use({ 'projekt0n/github-nvim-theme' })
+
+  vim.cmd('colorscheme github_dark')
+
+  -- utils
+  use 'tpope/vim-fugitive'
 
   if packer_bootstrap then
     require('packer').sync()

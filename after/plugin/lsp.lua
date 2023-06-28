@@ -13,6 +13,7 @@ require'mason-lspconfig'.setup {
 		-- language servers
 		'solargraph',
 		'lua_ls',
+    'tsserver'
 	}
 }
 
@@ -56,3 +57,4 @@ lspconfig.lua_ls.setup({
 		}
 	}
 })
+lspconfig.tsserver.setup({})

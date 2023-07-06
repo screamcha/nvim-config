@@ -24,6 +24,10 @@ return require('packer').startup(function(use)
     run = ':TSUpdate'
   }
 
+  -- lualine
+  use { "arkav/lualine-lsp-progress" }
+  use { "nvim-lualine/lualine.nvim" }
+
   -- neo-tree
   use { 'nvim-tree/nvim-web-devicons' }
   use { 'MunifTanjim/nui.nvim' }

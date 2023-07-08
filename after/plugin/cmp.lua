@@ -14,9 +14,13 @@ cmp.setup({
 		end,
 	},
 	mapping = {
-		['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-		['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-		['<C-y>'] = cmp.mapping.confirm({select = true}),
-		['<M-Space>'] = cmp.mapping.complete()
+		['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
+		['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
+		['<CR>'] = cmp.mapping.confirm({
+      select = true,
+      behavior = cmp.ConfirmBehavior.Replace,
+    }),
+		['<C-n>'] = cmp.mapping.complete(),
+		['<C-e>'] = cmp.mapping.close()
 	}
 })

@@ -32,7 +32,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>rn', function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set('n', '<leader>ca', function() vim.lsp.buf.code_action() end, opts)
     vim.keymap.set({ 'n', 'x' }, '<F3>', function() vim.lsp.buf.format({ async = true }) end, opts)
-    vim.keymap.set('i', '<leader><C-h>', function() vim.lsp.buf.signature_help() end, opts)
 
     vim.keymap.set('n', '<leader>vd', function() vim.diagnostic.open_float() end, opts)
     vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev() end, opts)

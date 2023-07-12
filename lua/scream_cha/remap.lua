@@ -30,9 +30,14 @@ end)
 vim.keymap.set("n", '<Tab>', ":tabn<CR>", { desc = "Move to the next tab" })
 vim.keymap.set("n", '<S-Tab>', ":tabp<CR>", { desc = "Move to the prev tab" })
 
+vim.keymap.set("n", "<leader>ss", ":split<CR>", { desc = "Split buffer" })
+vim.keymap.set("n", "<leader>vs", ":vsplit<CR>", { desc = "Vertically split buffer" })
+
 vim.keymap.set("n", "<C-h>", "<C-W>h", { desc = "Go to left window" })
 vim.keymap.set("n", "<C-j>", "<C-W>j", { desc = "Go to lower window" })
 vim.keymap.set("n", "<C-k>", "<C-W>k", { desc = "Go to upper window" })
 vim.keymap.set("n", "<C-l>", "<C-W>l", { desc = "Go to right window" })
 
 vim.keymap.set("v", "<leader>cb", '"*y', { desc = "Copy to system clipboard" })
+
+vim.keymap.set("n", "<F12>", "<CMD>Neotree toggle<CR>", { desc = "Toggle NeoTree" })

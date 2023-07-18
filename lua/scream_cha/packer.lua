@@ -56,8 +56,9 @@ return require('packer').startup(function(use)
 
   vim.cmd('colorscheme github_dark')
 
-  -- utils
+  -- git
   use 'tpope/vim-fugitive'
+  use 'airblade/vim-gitgutter'
 
   if packer_bootstrap then
     require('packer').sync()

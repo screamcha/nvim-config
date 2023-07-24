@@ -13,7 +13,8 @@ require 'mason-lspconfig'.setup {
     -- language servers
     'solargraph',
     'lua_ls',
-    'tsserver'
+    'tsserver',
+    'terraform-ls'
   }
 }
 
@@ -57,3 +58,4 @@ lspconfig.lua_ls.setup({
   }
 })
 lspconfig.tsserver.setup({})
+lspconfig.terraformls.setup({})

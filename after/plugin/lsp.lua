@@ -14,7 +14,7 @@ require 'mason-lspconfig'.setup {
     'solargraph',
     'lua_ls',
     'tsserver',
-    'terraform-ls'
+    'terraformls'
   }
 }
 

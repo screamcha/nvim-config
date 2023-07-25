@@ -47,18 +47,20 @@ return require('packer').startup(function(use)
   use 'neovim/nvim-lspconfig'
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
-
   use 'L3MON4D3/LuaSnip'
+
+  -- git
+  use 'tpope/vim-fugitive'
+  use 'airblade/vim-gitgutter'
+
+  -- tmux
+  use 'christoomey/vim-tmux-navigator'
 
   -- themes
   use({ 'rose-pine/neovim', as = 'rose-pine' })
   use({ 'projekt0n/github-nvim-theme' })
 
   vim.cmd('colorscheme github_dark')
-
-  -- git
-  use 'tpope/vim-fugitive'
-  use 'airblade/vim-gitgutter'
 
   if packer_bootstrap then
     require('packer').sync()

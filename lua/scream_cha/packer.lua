@@ -57,10 +57,10 @@ return require('packer').startup(function(use)
   use 'christoomey/vim-tmux-navigator'
 
   -- themes
-  use({ 'rose-pine/neovim', as = 'rose-pine' })
   use({ 'projekt0n/github-nvim-theme' })
+  use({ 'catppuccin/nvim', as = 'catpuccin' })
 
-  vim.cmd('colorscheme github_dark')
+  vim.cmd('colorscheme catppuccin-mocha')
 
   if packer_bootstrap then
     require('packer').sync()

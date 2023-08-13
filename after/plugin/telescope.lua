@@ -4,16 +4,12 @@ local actions = require('telescope.actions')
 
 vim.keymap.set('n', '<leader>t', builtin.find_files, {})
 vim.keymap.set('n', '<leader>f', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>h', builtin.oldfiles, {})
-vim.keymap.set('n', '<leader>j', builtin.jumplist, {})
-vim.keymap.set('n', '<leader>rs', builtin.registers, {})
 vim.keymap.set('n', '<leader>rg', function()
   builtin.grep_string({ search = vim.fn.input("Grep > ") })
 end)
 vim.keymap.set('n', '<leader>b', builtin.buffers, {})
-vim.keymap.set('n', '<leader>m', builtin.marks, {})
 vim.keymap.set('n', '<leader>k', builtin.keymaps, {})
-vim.keymap.set('n', '<leader>lt', builtin.treesitter, {})
+vim.keymap.set('n', '<leader>br', builtin.git_branches, {})
 
 telescope.setup {
   opts = {
@@ -29,12 +25,8 @@ telescope.setup {
   defaults = {
     mappings = {
       i = {
-        ["<C-j>"] = function(...)
-          return actions.move_selection_next(...)
-        end,
-        ["<C-k>"] = function(...)
-          return actions.move_selection_previous(...)
-        end,
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
       }
     }
   }

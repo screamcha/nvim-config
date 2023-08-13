@@ -43,3 +43,4 @@ for k, v in pairs(options) do
 	vim.o[k] = v
 end
 
+vim.opt.iskeyword:append("-")

@@ -30,7 +30,6 @@ return require('packer').startup(function(use)
   use { "nvim-lualine/lualine.nvim" }
 
   -- neo-tree
-  use { 'nvim-lua/plenary.nvim' }
   use { 'nvim-tree/nvim-web-devicons' }
   use { 'MunifTanjim/nui.nvim' }
   use {
@@ -60,9 +59,10 @@ return require('packer').startup(function(use)
   use({ 'projekt0n/github-nvim-theme' })
   use({ 'catppuccin/nvim', as = 'catpuccin' })
 
-  vim.cmd('colorscheme catppuccin-mocha')
+  vim.cmd('colorscheme catppuccin-latte')
 
   if packer_bootstrap then
     require('packer').sync()
   end
 end)
+

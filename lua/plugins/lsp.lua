@@ -2,104 +2,53 @@ return {
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      "hrsh7th/nvim-cmp",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "saadparwaiz1/cmp_luasnip",
-      "L3MON4D3/LuaSnip",
-      "williamboman/mason-lspconfig.nvim",
-    },
-    init = function ()
-      -- LSP Setup
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+    init = function()
+      local lspconfig = require("lspconfig")
+      local lsp_defaults = lspconfig.util.default_config
 
-      local opts = { noremap = true, silent = true }
+      lsp_defaults.capabilities = vim.tbl_deep_extend(
+        "force",
+        lsp_defaults.capabilities,
+        require("cmp_nvim_lsp").default_capabilities()
+      )
 
-      vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-      vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+      vim.diagnostic.config({
+        virtual_test = true
+      })
 
-      local on_attach = function(client, bufnr)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-      end
+      vim.api.nvim_create_autocmd("LspAttach", {
+        desc = "LSP actions",
+        callback = function(event)
+          local opts = { buffer = event.buf, noremap = true, silent = true }
 
-      local servers = {
-        'solargraph',
-        'tsserver',
-        'lua_ls',
-        'rust_analyzer'
-      }
+          vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+          vim.keymap.set("n", "<leader>gd", function() vim.lsp.buf.definition() end, opts)
+          vim.keymap.set("n", "<leader>gD", function() vim.lsp.buf.declaration() end, opts)
+          vim.keymap.set("n", "<leader>gi", function() vim.lsp.buf.implementation() end, opts)
+          vim.keymap.set("n", "<leader>gt", function() vim.lsp.buf.type_definition() end, opts)
+          vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
+          vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
+          vim.keymap.set("n", "<leader>gr", function() vim.lsp.buf.references() end, opts)
+          vim.keymap.set({ "n", "x" }, "<F3>", function() vim.lsp.buf.format({ async = true }) end, opts)
 
-      for _, lsp in pairs(servers) do
-        require('lspconfig')[lsp].setup {
-          on_attach = on_attach,
-          capabilities = capabilities,
-        }
-      end
-      -- LSP Setup end
+          vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
+          vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev() end, opts)
+          vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next() end, opts)
+        end,
+      })
 
-      -- Completion Setup
-      local luasnip = require 'luasnip'
-
-      -- nvim-cmp setup
-      local cmp = require 'cmp'
-      cmp.setup {
-        snippet = {
-          expand = function(args)
-            require('luasnip').lsp_expand(args.body)
-          end,
-        },
-        mapping = {
-          ['<C-j>'] = cmp.mapping.select_next_item(),
-          ['<C-k>'] = cmp.mapping.select_prev_item(),
-          ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ['<C-n>'] = cmp.mapping.complete(),
-          ['<C-e>'] = cmp.mapping.close(),
-          ['<CR>'] = cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-          },
-          ['<Tab>'] = function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
-            else
-              fallback()
-            end
-          end,
-          ['<S-Tab>'] = function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-              luasnip.jump(-1)
-            else
-              fallback()
-            end
-          end,
-        },
-        sources = {
-          { name = 'nvim_lsp' },
-          {
-            name = 'buffer',
-            option = {
-              get_bufnrs = function()
-                return vim.api.nvim_list_bufs()
-              end
+      lspconfig.lua_ls.setup({
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { "vim" }
+            },
+            telemetry = {
+              enable = false
             },
           },
         },
-      }
-      -- Completion Setup
+      })
     end,
   },
   {
@@ -114,4 +63,5 @@ return {
       },
     },
   },
+  { "williamboman/mason-lspconfig.nvim", }
 }

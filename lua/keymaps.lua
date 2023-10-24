@@ -35,3 +35,4 @@ vim.keymap.set("n", "<C-l>", "<C-W>l", { desc = "Go to right window" })
 
 vim.keymap.set("v", "<leader>cb", '"*y', { desc = "Copy to system clipboard" })
 vim.keymap.set("n", "x", '"_x', { desc = 'erase one character without rewriting the clipboard' })
+

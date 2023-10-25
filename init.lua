@@ -1,3 +1,6 @@
-require("scream_cha.remap")
-require("scream_cha.packer")
-require("scream_cha.options")
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+require("options")
+require("keymaps")
+require("lazynvim")

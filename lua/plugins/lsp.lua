@@ -18,28 +18,32 @@ return {
       vim.api.nvim_create_autocmd("LspAttach", {
         desc = "LSP actions",
         callback = function(event)
-          vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, { buffer = event.buf, desc = "Hover for details" })
-          vim.keymap.set("n", "<leader>gd", function() vim.lsp.buf.definition() end,
-            { buffer = event.buf, desc = "Go to definition" })
-          vim.keymap.set("n", "<leader>gD", function() vim.lsp.buf.declaration() end,
-            { buffer = event.buf, desc = "Go to declaration" })
-          vim.keymap.set("n", "<leader>gi", function() vim.lsp.buf.implementation() end,
-            { buffer = event.buf, desc = "Go to implementation" })
-          vim.keymap.set("n", "<leader>gt", function() vim.lsp.buf.type_definition() end,
-            { buffer = event.buf, desc = "Go to type definition" })
-          vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end,
-            { buffer = event.buf, desc = "Workspace symbol" })
-          vim.keymap.set("n", "<leader>gr", function() vim.lsp.buf.references() end,
-            { buffer = event.buf, desc = "References" })
-          vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, { buffer = event.buf, desc = "Rename" })
-          vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end,
-            { buffer = event.buf, desc = "Code action" })
-          vim.keymap.set({ "n", "x" }, "<F3>", function() vim.lsp.buf.format({ async = true }) end,
-            { buffer = event.buf, desc = "Format file" })
+          local function opts(desc)
+            return { desc = "LSP: " .. desc, buffer = event.buf, noremap = true, silent = true }
+          end
 
-          vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, { buffer = event.buf, desc = "Open diagnostics" })
-          vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev() end, { buffer = event.buf, desc = "Go to previous diagnostic item" })
-          vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next() end, { buffer = event.buf, desc = "Go to next diagnostic item" })
+          vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts("Hover for details"))
+          vim.keymap.set("n", "<leader>gd", function() vim.lsp.buf.definition() end,
+            opts("Go to definition"))
+          vim.keymap.set("n", "<leader>gD", function() vim.lsp.buf.declaration() end,
+            opts("Go to declaration"))
+          vim.keymap.set("n", "<leader>gi", function() vim.lsp.buf.implementation() end,
+            opts("Go to implementation"))
+          vim.keymap.set("n", "<leader>gt", function() vim.lsp.buf.type_definition() end,
+            opts("Go to type definition"))
+          vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end,
+            opts("Workspace symbol"))
+          vim.keymap.set("n", "<leader>gr", function() vim.lsp.buf.references() end,
+            opts("References"))
+          vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts("Rename"))
+          vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end,
+            opts("Code action"))
+          vim.keymap.set({ "n", "x" }, "<leader>f", function() vim.lsp.buf.format({ async = true }) end,
+            opts("Format file"))
+
+          vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts("Open diagnostics"))
+          vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev() end, opts("Go to previous diagnostic item"))
+          vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next() end, opts("Go to next diagnostic item"))
         end
       })
 

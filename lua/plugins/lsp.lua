@@ -66,6 +66,17 @@ return {
       })
       lspconfig.tsserver.setup({})
       lspconfig.terraformls.setup({})
+      lspconfig.rust_analyzer.setup({})
+
+      -- linters
+      lspconfig.eslint.setup({
+        on_attach = function(_, bufnr)
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            command = "EslintFixAll",
+          })
+        end,
+      })
     end,
   },
   {
@@ -83,6 +94,8 @@ return {
         "lua_ls",
         "tsserver",
         "terraformls",
+        "rust_analyzer",
+        "eslint"
       },
     },
   },

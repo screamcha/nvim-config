@@ -1,21 +1,18 @@
 return {
   {
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.3",
+    tag = "0.1.4",
     dependencies = {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     },
     keys = {
       { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Telescope find files" },
+      { "<leader>fs", "<cmd>Telescope grep_string<cr>", desc = "Telescope find string under cursor" },
       { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Telescope live grep" },
-      {
-        "<leader>fs",
-        function()
-          return require("telescope.builtin").grep_string({ search = vim.fn.input("Grep > ") })
-        end,
-        desc = "Telescope grep string"
-      },
+      { "<leader>fo", "<cmd>Telescope oldfiles<cr>", desc = "Telescope recently opened files" },
+      { "<leader>fr", "<cmd>Telescope registers<cr>", desc = "Telescope show registers" },
+      { "<leader>ft", "<cmd>Telescope treesitter<cr>", desc = "Telescope show treesitter symbols" },
     },
     opts = {
       extensions = {

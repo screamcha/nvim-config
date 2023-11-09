@@ -21,8 +21,8 @@ vim.keymap.set("n", "<leader><leader>", function()
   vim.cmd("so")
 end)
 
-vim.keymap.set("n", '<Tab>', ":tabn<CR>", { desc = "Move to the next tab" })
-vim.keymap.set("n", '<S-Tab>', ":tabp<CR>", { desc = "Move to the prev tab" })
+vim.keymap.set("n", '<C-t>', ":tabn<CR>", { desc = "Move to the next tab" })
+vim.keymap.set("n", '<S-t>', ":tabp<CR>", { desc = "Move to the prev tab" })
 
 vim.keymap.set("n", "<leader>ss", ":split<CR>", { desc = "Split buffer" })
 vim.keymap.set("n", "<leader>vs", ":vsplit<CR>", { desc = "Vertically split buffer" })
